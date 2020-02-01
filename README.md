@@ -12,7 +12,7 @@
 
 **Summary:**
 
-- The computer vision problem that our group will be working on involves human surveillance in static images. Our plan is to count the number of people in a given image. The program should take in an image of a group of people, and return the number of people that it has counted in it.
+- The computer vision problem that our group will be working on involves human surveillance in static images. Our plan is to count the number of people in a given image. The program should take in an image of a group of people, and return the number of people that it has counted in it. If there is time, we hope to provide live feedback from a cell phone camera feed on how many people are currently in frame.
 
 **Background:**
 
@@ -23,12 +23,12 @@
 
 **The Challenge :**
 
-- The problem of human detection in static images is challenging for many reasons. In order to count the number of people in an image, the application must be able to properly identify a person within the image. This is not a trivial task since not only do people have unique physical appearances, but they may be different orientations relative to the camera.
+- The problem of human detection in static images is challenging for many reasons. In order to count the number of people in an image, the application must be able to properly identify a person within the image. This is not a trivial task since not only do people have unique physical appearances, but they may be oriented differently relative to the camera. Basically, being able to determine what constitutes a human in an image, and then counting them.
 
 **Could you solve your problem using just a few pre-existing functions in OpenCV?**
 **Try to state explicitly what you are hoping to learn by doing this project?**
 
-- From this project, we are hoping to become familiar with openCV for object classification within an image.
+- From this project, we are hoping to become familiar with openCV for object classification within an image. We hope to also gain insight into the process of recognizing humans within images. As image data may differ from camera to camera, we hope to apply techniques to standardize the images, in order to get consistent results.
 
 **Visual Description:**
 
@@ -44,13 +44,13 @@ Given an image of a crowd of people (like in figure A), our application will cou
 
 **Goals and Deliverables:**
 
-**• WHAT WE PLAN TO ACHIEVE:**
+**• What We Plan To Achieve:**
 
 - We plan to achieve a working application which can identify and count people in a static image, displaying the result to the user. Every person identified within the image will be outlined with a box and labelled as a person.
 
-**• WHAT WE HOPE TO ACHIEVE:**
+**• What We Hope To Achieve**
 
-- Once we have an application which can identify and count people in a static image, we would hope to extend the project to detect and identify people moving about a scene in a video.
+- Once we have an application which can identify and count people in a static image, we would hope to extend the project to detect and identify people moving about a scene in a video in live time. (I.e. the feed from a cell phone camera)
 
 **• What success looks like and how it can be evaluated.**
 
@@ -58,7 +58,7 @@ Given an image of a crowd of people (like in figure A), our application will cou
 
 **• How realistic is it for your team to get what it needs to get done within the allotted time? Remember you only have a few weeks to get this project completed.**
 
-- We are confident that we will be able to complete the project within the allocated time we have been provided.
+- We are confident that we will be able to complete the project within the allocated time we have been provided. We have identified the key features to focus on early to allow us time to ensure these features are working as intended by the end. Additional features have been identified but will only be implemented if time allows.
 
 **Schedule:**
 
