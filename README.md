@@ -60,6 +60,22 @@ Given an image of a crowd of people (like in figure A), our application will cou
 
 - We are confident that we will be able to complete the project within the allocated time we have been provided. We have identified the key features to focus on early to allow us time to ensure these features are working as intended by the end. Additional features have been identified but will only be implemented if time allows.
 
+**Technical Information**
+
+For this project, we will be using the libraries Tensorflow, NumPy, and OpenCV. Using these libraries, we hope to detect human figures within an image or video. There are two approaches to solve this problem which will be explored within the coming weeks. A brief summary for these approaches can be found below:
+
+(A) Using an image without humans as a baseline, we will detect any new objects appearing in subsequent images/frames through comparison with the baseline. The newly identified objects will be isolated and classified using a neural net trained to identify human figures.
+
+(B) Using VIRAT human surveillance dataset videos, we will train a neural net to classify human figures within a scene. The VIRAT human surveillance datasets contain testing and validation data which is formatted unlike those available through MNIST. Additional parsing will be required to correlate annotated events with those in the videos. Once this has been one, a neural net can be trained to identify human figures within a video or image.
+
+As expressed earlier, the libraries TensorFlow, NumPy, and OpenCV will be used in this project. 
+Firstly, TensorFlow will be used for training neural networks using human surveillance datasets. TensorBoard, an accompanying tool for TensorFlow, will be used for machine learning data visualization. The second notable library, OpenCV, will be used for image manipulation and parsing. An example of how we would use OpenCV would be loading the VIRAT dataset videos for approach two, where the dataset videos must be opened using OpenCV’s VideoCapture functions to extract frame data. Once all of the frame data has been decoupled from the video datasets, the neural network can be trained. The third notable library, NumPy, boasts a large variety of mathematical operations and will be used for data manipulation in conjunction with OpenCV. NumPy will be used for any mathematical operations which are not available through the OpenCV library.
+
+The VIRAT video datasets can be obtained through the VIRAT website, found through the link below.
+
+https://viratdata.org/
+
+
 **Schedule:**
 
 | **Jake** | **Cody** | **Andrew** | **Week** |
