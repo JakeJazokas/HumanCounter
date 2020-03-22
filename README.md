@@ -10,6 +10,22 @@
 - Cody Bennett - 101035873
 - Andrew Burry - 100832328
 
+**To Run**
+
+Preparation:
+1) Open Terminal in HumanCounter directory
+2) Use a virtual environment:
+    python -m venv venv
+  # Execute (Linux):
+    . /venv/bin/activate
+  # Execute (Win):
+    .\venv\Scripts\activate
+4) pip install the project in editable state
+    pip install -r requirements.txt -e .
+
+Running:
+  python humancounter
+
 **Summary:**
 
 - The computer vision problem that our group will be working on involves human surveillance in static images. Our plan is to count the number of people in a given image. The program should take in an image of a group of people, and return the number of people that it has counted in it. If there is time, we hope to provide live feedback from a cell phone camera feed on how many people are currently in frame.
