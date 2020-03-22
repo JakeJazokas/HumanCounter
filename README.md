@@ -10,24 +10,23 @@
 - Cody Bennett - 101035873
 - Andrew Burry - 100832328
 
-**To Run**
-
-Preparation:
+**Build steps:**
 1) Open Terminal in HumanCounter directory
 2) Use a virtual environment:
 
-`python -m venv venv`
+```python -m venv venv```
 
-`. /venv/bin/activate` (Linux)
+```. /venv/bin/activate``` (Linux)
 
-`.\venv\Scripts\activate` (Win)
+```.\venv\Scripts\activate``` (Win)
 
 4) pip install the project in editable state
 
-`pip install -r requirements.txt -e .`
+```pip install -r requirements.txt -e .```
 
-Running:
-  python humancounter
+**Running:**
+
+```python humancounter```
 
 **Summary:**
 
