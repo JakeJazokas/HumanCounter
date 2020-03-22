@@ -15,11 +15,16 @@
 Preparation:
 1) Open Terminal in HumanCounter directory
 2) Use a virtual environment:
-    `python -m venv venv`
-    `. /venv/bin/activate` (Linux)
-    `.\venv\Scripts\activate` (Win)
+
+`python -m venv venv`
+
+`. /venv/bin/activate` (Linux)
+
+`.\venv\Scripts\activate` (Win)
+
 4) pip install the project in editable state
-    `pip install -r requirements.txt -e .`
+
+`pip install -r requirements.txt -e .`
 
 Running:
   python humancounter
