@@ -3,6 +3,27 @@ import cv2
 import numpy as np
 import humancounter.resources.cascades.cascadeHandler as classifier
 import humancounter.resources.videos.videoHandler as videos
+import time
+
+def create_mask(frame,kernel,fgbg):
+    mask = fgbg.apply(frame)
+    mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)
+    _, mask= cv2.threshold(mask, 200, 255, cv2.THRESH_BINARY)
+    return mask
+
+def create_contours(frame,mask):
+    # Find the contours on the mask that was just thresholded
+    contours, _ = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    num_people = 0
+    for contour in contours:
+        # Create a bounding rectangle from the contour
+        (x, y, w, h) = cv2.boundingRect(contour)
+        centerCoord = (int(x+(w/2)), int(y+(h/2)))
+        # Draw the rectangle on the current frame
+        if cv2.contourArea(contour) > 200:
+            num_people += 1
+            cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
+    return num_people
 
 def detectVideo(video):
     print("Running Application Human Counter")
@@ -25,30 +46,10 @@ def detectVideo(video):
         if frame is None:
             break
         
-        output = np.copy(frame)
+        mask = create_mask(frame,kernel,fgbg)
+        num_people = create_contours(frame,mask)
 
-        fgmask = fgbg.apply(frame)
-        fgmask = cv2.morphologyEx(fgmask, cv2.MORPH_OPEN, kernel)
-        _, fgmask= cv2.threshold(fgmask, 200, 255, cv2.THRESH_BINARY)
-
-        indices = np.where(fgmask == 0)
-        output[indices] = (0, 0, 0)
-
-        # Find the contours on the mask that was just thresholded
-        contours, _ = cv2.findContours(fgmask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-
-        # Draw the contours
-        cv2.drawContours(output, contours, -1, (0, 255, 0), 2)
-
-        num_people = 0
-        for contour in contours:
-            # Create a bounding rectangle from the contour
-            (x, y, w, h) = cv2.boundingRect(contour)
-            centerCoord = (int(x+(w/2)), int(y+(h/2)))
-            # Draw the rectangle on the current frame
-            if cv2.contourArea(contour) > 200:
-                num_people += 1
-                cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
+        indices = np.where(mask == 0)
 
         cv2.putText(frame, 
                     "Number of People: {}".format(num_people), 
@@ -58,13 +59,12 @@ def detectVideo(video):
 
         out.write(frame)
         cv2.imshow('frame', frame)
-        cv2.imshow('original', output)
         k = cv2.waitKey(30) & 0xff
         if k == 27:
             break
         
-        if cv2.waitKey(1) == 13: #13 is the Enter Key
-            break
+        if k == 13: #13 is the Enter Key
+            time.sleep(5)
 
     out.release()
     cap.release()
