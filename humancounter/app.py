@@ -5,7 +5,7 @@ import humancounter.resources.cascades.cascadeHandler as classifier
 import humancounter.resources.videos.videoHandler as videos
 import time
 
-def create_mask(frame,kernel,fgbg):
+def create_mask(frame,kernel,fgbg):#create the mask
     mask = fgbg.apply(frame)
     mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)
     _, mask= cv2.threshold(mask, 200, 255, cv2.THRESH_BINARY)
