@@ -11,22 +11,20 @@
 - Andrew Burry - 100832328
 
 **Build steps:**
-1) Open Terminal in HumanCounter directory
-2) Use a virtual environment:
+1) Open Terminal in the HumanCounter directory
+2) Install the python requirements using the following command
 
-```python -m venv venv```
-
-```. /venv/bin/activate``` (Linux)
-
-```.\venv\Scripts\activate``` (Win)
-
-4) pip install the project in editable state
-
-```pip install -r requirements.txt -e .```
+```pip install -r requirements.txt```
 
 **Running:**
 
-```python humancounter```
+1) Run the following command in the HumanCounter directory
+
+```python manage.py runserver```
+
+2) Open a web browser and go to 
+
+```http://localhost:8000/```
 
 **Summary:**
 
