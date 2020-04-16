@@ -24,6 +24,8 @@ urlpatterns = [
     path('', include('web_interface.urls')),
     path('image/', include('upload_image.urls')),
     path('video/', include('upload_video.urls')),
+    path('yolo_image/', include('upload_image_yolo.urls')),
+    path('yolo_video/', include('upload_video_yolo.urls')),
 ]
 
 if settings.DEBUG:
