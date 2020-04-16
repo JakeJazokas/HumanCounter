@@ -55,11 +55,13 @@ def detectVideo(video_name):
 
     height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
     width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+    fps = cap.get(cv2.CAP_PROP_FPS)
+
 
     fourcc = cv2.VideoWriter_fourcc('a','v','c','1')
 
     name = 'counted_' + video_name
-    out = cv2.VideoWriter(os.path.abspath(os.path.join(MEDIA_ROOT, name)), fourcc, 20.0, (width, height))
+    out = cv2.VideoWriter(os.path.abspath(os.path.join(MEDIA_ROOT, name)), fourcc, fps, (width, height))
 
     # Loop once video is successfully loaded
     kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(5,5))
