@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10">
+            <div class="card mb-4">
+                <div class="card-body" style="background-color: #343a40;">
+                    <h2>Upload Video</h2>
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="input-group mb-3">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="inputGroupFile02" name="video">
+                                <label class="custom-file-label" for="inputGroupFile02">Choose Video...</label>
+                            </div>
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-outline-primary">Upload Video</button>
+                            </div>
+                        </div>
+                        <script>
+                            $('#inputGroupFile02').on('change',function(){
+                                //get the file name
+                                var fileName = $(this).val().replace("C:\\fakepath\\", "");
+                                //replace the "Choose a file" label
+                                $(this).next('.custom-file-label').html(fileName);
+                            })
+                        </script>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if upload_url %}
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10">
+            <div class="card mb-4">
+                <div class="card-body" style="background-color: #343a40;">
+                    <h2>Uploaded Video</h2>
+                    <video width='100%' controls>
+                        <source src='{{ upload_url }}' type="video/mp4">
+                    </video>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if counted_url %}
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10">
+            <div class="card mb-4">
+                <div class="card-body" style="background-color: #343a40;">
+                    <h2>Counted Video</h2>
+                    <video width='100%' controls>
+                        <source src='{{ counted_url }}' type="video/mp4">
+                    </video>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+{% endblock %}
