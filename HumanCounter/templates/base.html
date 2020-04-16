@@ -23,12 +23,18 @@
               <li class="nav-item {% if request.resolver_match.url_name == 'web_interface' %}active{% endif %}">
                 <a class="nav-link" href="{% url 'web_interface' %}">Home</a>
               </li>
-              <li class="nav-item {% if 'image' in request.path %}active{% endif %}">
-                  <a class="nav-link" href="{% url 'upload_image' %}">Image</a>
-                </li>
-                <li class="nav-item {% if 'video' in request.path %}active{% endif %}">
-                  <a class="nav-link" href="{% url 'upload_video' %}">Video</a>
-                </li>
+              <li class="nav-item {% if request.resolver_match.url_name == 'upload_image' %}active{% endif %}">
+                <a class="nav-link" href="{% url 'upload_image' %}">Image</a>
+              </li>
+              <li class="nav-item {% if request.resolver_match.url_name == 'upload_video' %}active{% endif %}">
+                <a class="nav-link" href="{% url 'upload_video' %}">Video</a>
+              </li>
+              <li class="nav-item {% if request.resolver_match.url_name == 'upload_image_yolo' %}active{% endif %}">
+                <a class="nav-link" href="{% url 'upload_image_yolo' %}">Image (YOLO)</a>
+              </li>
+              <li class="nav-item {% if request.resolver_match.url_name == 'upload_video_yolo' %}active{% endif %}">
+                <a class="nav-link" href="{% url 'upload_video_yolo' %}">Video (YOLO)</a>
+              </li>
             </ul>
           </div>
       </div>

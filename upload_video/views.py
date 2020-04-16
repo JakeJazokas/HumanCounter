@@ -17,11 +17,8 @@ def upload_video(request):
         fs = FileSystemStorage()
         name = fs.save(uploaded_video.name, uploaded_video)
         context['upload_url'] = fs.url(name)
-
         video_name = detectVideo(name)
         context['counted_url'] = fs.url(video_name)
-
-        print(fs.url(video_name))
     return render(request, 'upload_video.html', context)
 
 #create the mask
@@ -89,5 +86,4 @@ def detectVideo(video_name):
     cap.release()
     out.release()
 
-    # name = fs.save('counted_2_' + video_name, fs.open(os.path.abspath(os.path.join(MEDIA_ROOT, name))))
     return name

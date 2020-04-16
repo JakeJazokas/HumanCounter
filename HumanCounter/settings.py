@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'web_interface',
     'upload_image',
     'upload_video',
+    'upload_image_yolo',
+    'upload_video_yolo',
 ]
 
 MIDDLEWARE = [
