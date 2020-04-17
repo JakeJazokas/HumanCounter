@@ -17,7 +17,7 @@ def upload_video_yolo(request):
         fs = FileSystemStorage()
         name = fs.save(uploaded_video.name, uploaded_video)
         context['upload_url'] = fs.url(name)
-
+        # Count people in video
         video_name = detectVideo(name)
         context['counted_url'] = fs.url(video_name)
     return render(request, 'upload_video_yolo.html', context)

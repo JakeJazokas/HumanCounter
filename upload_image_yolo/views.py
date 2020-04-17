@@ -17,6 +17,7 @@ def upload_image_yolo(request):
         fs = FileSystemStorage()
         name = fs.save(uploaded_image.name, uploaded_image)
         context['upload_url'] = fs.url(name)
+        # Count people in image
         img, num_people = count_people(name)
         context['counted_url'] = fs.url(img)
         context['counted_num'] = num_people
@@ -32,7 +33,6 @@ def count_people(image_name):
 
     # Read the image
     image = cv2.imread(filename)
-
     shape = image.shape[:2]
 
     # Build a blob from the image
@@ -41,12 +41,12 @@ def count_people(image_name):
 
     # Extract the outputs from each classifier
     layerOutputs = model.forward(['yolo_82', 'yolo_94', 'yolo_106'])
-
     boxes = []
     confidences = []
-    # loop over each of the layer outputs
+    
+    # Loop over each of the layer outputs
     for output in layerOutputs:
-        # loop over each of the detections
+        # Loop over each of the detections
         for detection in output:
             boxes, confidences = utils.parse_detection(detection, shape, boxes, confidences)
 
