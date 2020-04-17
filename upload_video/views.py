@@ -41,7 +41,7 @@ def count_people(frame, mask):
     rects = np.array([[x, y, x + w, y + h] for (x, y, w, h) in new_contours])
     
     # Perform non maxima supression on the list of rectangles
-    nms_rects = non_max_suppression(rects, probs=None, overlapThresh=0.65)
+    nms_rects = non_max_suppression(rects, probs=None, overlapThresh=0.2)
     
     # Draw the supressed rectangles
     [cv2.rectangle(frame, (xA, yA), (xB, yB), (0, 255, 0), 2) for (xA, yA, xB, yB) in nms_rects]
