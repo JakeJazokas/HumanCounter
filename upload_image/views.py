@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.core.files.storage import FileSystemStorage
 from HumanCounter.settings import MEDIA_ROOT
+from HumanCounter.settings import STATICFILES_DIRS
 import os
 import cv2
 import imutils
@@ -24,31 +25,36 @@ def upload_image(request):
 def count_people(image_name):
     # File name
     filename = os.path.abspath(os.path.join(MEDIA_ROOT, image_name))
-    
-    # Create a HOG dectector
-    hog = cv2.HOGDescriptor()
+    # Read the image and blur it
+    image = cv2.imread(filename, cv2.COLOR_BGR2GRAY)
+    blurred = cv2.GaussianBlur(image,(3,3),2)
 
-    # Set the coefficients of the linear SVM classifier
-    hog.setSVMDetector(cv2.HOGDescriptor_getDefaultPeopleDetector())
-
-    # Load the image
-    image = cv2.imread(filename)
-    image = imutils.resize(image, width=min(400, image.shape[1]))
-
-    # detect people in the image
-    rects, weights = hog.detectMultiScale(image, winStride=(4, 4), padding=(8, 8), scale=1.05)
-	
-    # apply non-maxima suppression to the bounding boxes using a
-	# fairly large overlap threshold to try to maintain overlapping
-	# boxes that are still people
-    rects = np.array([[x, y, x + w, y + h] for (x, y, w, h) in rects])
-    pick = non_max_suppression(rects, probs=None, overlapThresh=0.65)
+    # First, attempt to classify faces
+    face_classifier = cv2.CascadeClassifier(STATICFILES_DIRS[0] + '/models/haarcascade_frontalface_default.xml')
     
-    # draw the final bounding boxes
-    [cv2.rectangle(image, (xA, yA), (xB, yB), (0, 255, 0), 2) for (xA, yA, xB, yB) in pick]
+    # Our classifier returns the ROI of the detected face as a tuple, 
+    # It stores the top left coordinate and the bottom right coordiantes
+    # Attempt to classify faces
+    classified = face_classifier.detectMultiScale(blurred, 1.0785258, 15)
+
+    # When no faces detected, face_classifier returns and empty tuple
+    # In that case, use a body classifier and attempt to classify bodys
+    if classified == ():
+        # Our classifier returns the ROI of the detected face as a tuple, 
+        # It stores the top left coordinate and the bottom right coordiantes
+        body_classifier = cv2.CascadeClassifier(STATICFILES_DIRS[0] + '/models/haarcascade_fullbody.xml')
+        classified = body_classifier.detectMultiScale(blurred, 1.0485258, 1)
+
+    # Get the rectangles from all the classifed objects
+    rects = np.array([[x, y, x + w, y + h] for (x, y, w, h) in classified])
+    # Perform non maxima supression on the list of rectangles
+    picks = non_max_suppression(rects, probs=None, overlapThresh=0.2)
+
+    # We iterate through our bodys array and draw a rectangle over each face in bodys
+    [cv2.rectangle(image, (xA,yA), (xB,yB), (0,0,255), 2) for (xA,yA,xB,yB) in picks]
     
-    # Number of people in the image
-    num_people = len(pick)
+    # Number of people is equal to the length of the non-maximal array
+    num_people = len(picks)
 
     # Write the number of people to the image
     cv2.putText(img=image,

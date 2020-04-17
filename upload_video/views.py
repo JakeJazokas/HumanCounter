@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.core.files.storage import FileSystemStorage
 from HumanCounter.settings import MEDIA_ROOT
-
 import time
 import cv2
 import os
