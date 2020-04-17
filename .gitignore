@@ -55,7 +55,7 @@ docs/_build/
 # Virtualenv
 venv
 
-#Output
-output
-
+# Media directory
 media
+
+*.weights
