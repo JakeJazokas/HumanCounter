@@ -1,10 +1,12 @@
 from django.shortcuts import render
 from django.core.files.storage import FileSystemStorage
 from HumanCounter.settings import MEDIA_ROOT
+from HumanCounter.settings import STATICFILES_DIRS
+
 import os
 import cv2
 import imutils
-from imutils.object_detection import non_max_suppression
+# from imutils.object_detection import non_max_suppression
 import numpy as np
 
 # Create your views here.
@@ -24,31 +26,51 @@ def upload_image(request):
 def count_people(image_name):
     # File name
     filename = os.path.abspath(os.path.join(MEDIA_ROOT, image_name))
+
+    image = cv2.imread(filename, cv2.COLOR_BGR2GRAY)
+    gray = image.copy()
+
+    body_classifier = cv2.CascadeClassifier(os.path.abspath(os.path.join(STATICFILES_DIRS[0], '/models/haarcascade_fullbody.xml')))
+    # body_classifier = cv2.CascadeClassifier('HumanCounter\static\models\haarcascade_fullbody.xml')
+
+    # gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     
-    # Create a HOG dectector
-    hog = cv2.HOGDescriptor()
+    ''' Our classifier returns the ROI of the detected face as a tuple, 
+    It stores the top left coordinate and the bottom right coordiantes'''
+    bodys = body_classifier.detectMultiScale(gray, 1.0485258, 6)
 
-    # Set the coefficients of the linear SVM classifier
-    hog.setSVMDetector(cv2.HOGDescriptor_getDefaultPeopleDetector())
+    # '''When no bodys detected, body_classifier returns and empty tuple'''
+    # if bodys is ():
+    #     print("No bodys found")
 
-    # Load the image
-    image = cv2.imread(filename)
-    image = imutils.resize(image, width=min(400, image.shape[1]))
+    '''We iterate through our bodys array and draw a rectangle over each face in bodys'''
+    [cv2.rectangle(image, (x,y), (x+w,y+h), (127,0,255), 2) for (x,y,w,h) in bodys]
+        
+    num_people = len(bodys)
+    # # Create a HOG dectector
+    # hog = cv2.HOGDescriptor()
 
-    # detect people in the image
-    rects, weights = hog.detectMultiScale(image, winStride=(4, 4), padding=(8, 8), scale=1.05)
+    # # Set the coefficients of the linear SVM classifier
+    # hog.setSVMDetector(cv2.HOGDescriptor_getDefaultPeopleDetector())
+
+    # # Load the image
+    # image = cv2.imread(filename)
+    # # image = imutils.resize(image, width=min(400, image.shape[1]))
+
+    # # detect people in the image
+    # rects, weights = hog.detectMultiScale(image, winStride=(4, 4), padding=(8, 8), scale=1.05)
 	
-    # apply non-maxima suppression to the bounding boxes using a
-	# fairly large overlap threshold to try to maintain overlapping
-	# boxes that are still people
-    rects = np.array([[x, y, x + w, y + h] for (x, y, w, h) in rects])
-    pick = non_max_suppression(rects, probs=None, overlapThresh=0.65)
+    # # apply non-maxima suppression to the bounding boxes using a
+	# # fairly large overlap threshold to try to maintain overlapping
+	# # boxes that are still people
+    # rects = np.array([[x, y, x + w, y + h] for (x, y, w, h) in rects])
+    # pick = non_max_suppression(rects, probs=None, overlapThresh=0.65)
     
-    # draw the final bounding boxes
-    [cv2.rectangle(image, (xA, yA), (xB, yB), (0, 255, 0), 2) for (xA, yA, xB, yB) in pick]
+    # # draw the final bounding boxes
+    # [cv2.rectangle(image, (xA, yA), (xB, yB), (0, 255, 0), 2) for (xA, yA, xB, yB) in pick]
     
-    # Number of people in the image
-    num_people = len(pick)
+    # # Number of people in the image
+    # num_people = len(pick)
 
     # Write the number of people to the image
     cv2.putText(img=image,
