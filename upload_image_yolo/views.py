@@ -4,7 +4,6 @@ from HumanCounter.settings import MEDIA_ROOT
 from HumanCounter.utils import yolo_utils as utils
 import os
 import time
-import argparse
 import numpy as np
 import cv2
 

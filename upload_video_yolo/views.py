@@ -5,7 +5,6 @@ from HumanCounter.settings import STATICFILES_DIRS
 from HumanCounter.utils import yolo_utils as utils
 import os
 import time
-import argparse
 import numpy as np
 import cv2
 
