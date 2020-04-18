@@ -15,9 +15,23 @@
 **Build steps:**
 1) Clone the Github Repository
 2) Open Terminal in the HumanCounter directory
-3) Install the python requirements using the following command: ```pip install -r requirements.txt```
+3) Use a virtual environment:
+```
+python -m venv venv
+```
+```
+.\venv\Scripts\activate (win)
+. /venv/bin/activate (linux)
+```
+3) Install the python requirements using the following command: 
+```
+pip install -r requirements.txt
+```
 4) Download the weights for the neural network: [https://pjreddie.com/media/files/yolov3.weights](https://pjreddie.com/media/files/yolov3.weights)
-5) Copy the weights file to: ```HumanCounter\HumanCounter\static\models\```
+5) Copy the weights file to the following directory: 
+```
+HumanCounter\HumanCounter\static\models\
+```
 
 **Running:**
 
