@@ -2,6 +2,8 @@
 
 **Github :** [_https://github.com/JakeJazokas/HumanCounter_](https://github.com/JakeJazokas/HumanCounter)
 
+**Final Document:** Located in the ```/docs/``` folder.
+
 **Title :** HumanCounter
 
 **Members:**
@@ -11,31 +13,28 @@
 - Andrew Burry - 100832328
 
 **Build steps:**
-1) Open Terminal in the HumanCounter directory
-2) Install the python requirements using the following command
-
-```pip install -r requirements.txt```
+1) Clone the Github Repository
+2) Open Terminal in the HumanCounter directory
+3) Install the python requirements using the following command: ```pip install -r requirements.txt```
+4) Download the weights for the neural network: [https://pjreddie.com/media/files/yolov3.weights](https://pjreddie.com/media/files/yolov3.weights)
+5) Copy the weights file to: ```HumanCounter\HumanCounter\static\models\```
 
 **Running:**
 
-1) Run the following command in the HumanCounter directory
-
-```python manage.py runserver```
-
-2) Open a web browser and go to 
-
-```http://localhost:8000/```
+1) Run the following command in the HumanCounter directory: ```python manage.py runserver```
+2) Open a web browser and go to: [http://localhost:8000/](http://localhost:8000/)
 
 **Summary:**
 
-- The computer vision problem that our group will be working on involves human surveillance in static images. Our plan is to count the number of people in a given image. The program should take in an image of a group of people, and return the number of people that it has counted in it. If there is time, we hope to provide live feedback from a cell phone camera feed on how many people are currently in frame.
+- Human detection is a well documented computer vision problem with applications becoming more and more prevalent in our everyday lives. The goal of our project was to accurately count the number of people in an image or video. To achieve this goal, we explored several detection utilities readily available within the OpenCV library, namely cascade classifiers, histogram of oriented gradients (HOG) feature descriptors, background subtractors and deep neural networks. After comparing the results of each of the human detection methodologies, the deep neural network based detector was the most successful at detecting humans in both images and videos with a high degree of accuracy.
 
 **Background:**
 
 - **Existing Research :**
   - [http://homepages.inf.ed.ac.uk/rbf/CAVIAR/](http://homepages.inf.ed.ac.uk/rbf/CAVIAR/)
+  - [https://pjreddie.com/darknet/yolo/](https://pjreddie.com/darknet/yolo/)
 - **What we are doing differently:**
-  - CAVIAR aims to detect unusual human behavior, or patterns in their activity. Our application will revolve around detecting the number of people in a crowd. And possibly displaying real time data data.
+  - CAVIAR aims to detect unusual human behavior, or patterns in their activity. Our application will revolve around detecting the number of people in a crowd. And displaying real time data data.
 
 **The Challenge :**
 
@@ -46,17 +45,18 @@
 
 - From this project, we are hoping to become familiar with openCV for object classification within an image. We hope to also gain insight into the process of recognizing humans within images. As image data may differ from camera to camera, we hope to apply techniques to standardize the images, in order to get consistent results.
 
+- We would not be able to solve this problem using only a few pre-existing functions in OpenCV, as object detection and classification is not a trivial problem.
+Thus, we have to write our own algorithms in order to solve the problem.
+
 **Visual Description:**
 
 Given an image of a crowd of people (like in figure A), our application will count the number of people that it sees in the image, and return that number (like in figure B).
 
-(A)
+**(A)** 
+![Image A](https://media.discordapp.net/attachments/672452802630516747/701094632058257468/people_close.png)
 
-![Image A](https://cdn.discordapp.com/attachments/672452802630516747/672893473631764490/unknown.png)
-
-(B)
-
-![Image B](https://cdn.discordapp.com/attachments/672452802630516747/672893497996738560/unknown.png)
+**(B)** 
+![Image B](https://media.discordapp.net/attachments/672452802630516747/701094658167537674/counted_people_close.png)
 
 **Goals and Deliverables:**
 
@@ -82,14 +82,15 @@ For this project, we will be using the libraries Tensorflow, NumPy, and OpenCV. 
 
 (A) Using an image without humans as a baseline, we will detect any new objects appearing in subsequent images/frames through comparison with the baseline. The newly identified objects will be isolated and classified using a neural net trained to identify human figures.
 
-(B) Using VIRAT human surveillance dataset videos, we will train a neural net to classify human figures within a scene. The VIRAT human surveillance datasets contain testing and validation data which is formatted unlike those available through MNIST. Additional parsing will be required to correlate annotated events with those in the videos. Once this has been one, a neural net can be trained to identify human figures within a video or image.
+~~(B) Using VIRAT human surveillance dataset videos, we will train a neural net to classify human figures within a scene. The VIRAT human surveillance datasets contain testing and validation data which is formatted unlike those available through MNIST. Additional parsing will be required to correlate annotated events with those in the videos. Once this has been one, a neural net can be trained to identify human figures within a video or image.~~
+
+(B) We now pass the YOLOv3 dataset weights to our neural network, which identifies human figures within a video or image.
 
 As expressed earlier, the libraries TensorFlow, NumPy, and OpenCV will be used in this project. 
 Firstly, TensorFlow will be used for training neural networks using human surveillance datasets. TensorBoard, an accompanying tool for TensorFlow, will be used for machine learning data visualization. The second notable library, OpenCV, will be used for image manipulation and parsing. An example of how we would use OpenCV would be loading the VIRAT dataset videos for approach two, where the dataset videos must be opened using OpenCV’s VideoCapture functions to extract frame data. Once all of the frame data has been decoupled from the video datasets, the neural network can be trained. The third notable library, NumPy, boasts a large variety of mathematical operations and will be used for data manipulation in conjunction with OpenCV. NumPy will be used for any mathematical operations which are not available through the OpenCV library.
 
-The VIRAT video datasets can be obtained through the VIRAT website, found through the link below.
-
-https://viratdata.org/
+~~The VIRAT video datasets can be obtained through the VIRAT website, found through the link below.
+https://viratdata.org/~~
 
 
 **Schedule:**
