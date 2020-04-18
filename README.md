@@ -49,16 +49,17 @@
 
 - **Existing Research :**
   - ~~[http://homepages.inf.ed.ac.uk/rbf/CAVIAR/](http://homepages.inf.ed.ac.uk/rbf/CAVIAR/)~~
-  | Reference Number | Citation |
-  |--|--|
-  | [1] | CAVIAR Project/IST 2001 37540, n.d. http://homepages.inf.ed.ac.uk/rbf/CAVIAR/. |
-  | [2] | P. Jones, Paul Viola, and Michael Jones. "Rapid Object Detection Using a Boosted Cascade of Simple Features." . In University of Rochester. Charles Rich (pp. 905–910).2001. |
-  | [3] | Bradski, G.. "The OpenCV Library".Dr. Dobb's Journal of Software Tools (2000). |
-  | [4] | Paulo Menezes, José Carlos Barreto, and Jorge Dias. "Face tracking based on haar-like features and eigenfaces".IFAC Proceedings Volumes 37, no.8 (2004): 304 - 309. |
-  | [5] | Redmon, Joseph, and Ali, Farhadi. "YOLOv3: An Incremental Improvement".arXiv (2018). |
-  | [6] | “Django.” Django. Django Software Foundation, April 1, 2020. https://djangoproject.com/. |
-  | [7] | Walt, Stéfan van der, S. Chris, Colbert, and Gaël, Varoquaux. "The NumPy Array: A Structure for Efficient Numerical Computation".Computing in Science & Engineering 13, no.2 (2011): 22-30. |
-  | [8] | jrosebr1. “jrosebr1/Imutils.” GitHub, August 18, 2019. https://github.com/jrosebr1/imutils. |
+  
+| Reference Number | Citation |
+|--|--|
+| [1] | CAVIAR Project/IST 2001 37540, n.d. http://homepages.inf.ed.ac.uk/rbf/CAVIAR/. |
+| [2] | P. Jones, Paul Viola, and Michael Jones. "Rapid Object Detection Using a Boosted Cascade of Simple Features." . In University of Rochester. Charles Rich (pp. 905–910).2001. |
+| [3] | Bradski, G.. "The OpenCV Library".Dr. Dobb's Journal of Software Tools (2000). |
+| [4] | Paulo Menezes, José Carlos Barreto, and Jorge Dias. "Face tracking based on haar-like features and eigenfaces".IFAC Proceedings Volumes 37, no.8 (2004): 304 - 309. |
+| [5] | Redmon, Joseph, and Ali, Farhadi. "YOLOv3: An Incremental Improvement".arXiv (2018). |
+| [6] | “Django.” Django. Django Software Foundation, April 1, 2020. https://djangoproject.com/. |
+| [7] | Walt, Stéfan van der, S. Chris, Colbert, and Gaël, Varoquaux. "The NumPy Array: A Structure for Efficient Numerical Computation".Computing in Science & Engineering 13, no.2 (2011): 22-30. |
+| [8] | jrosebr1. “jrosebr1/Imutils.” GitHub, August 18, 2019. https://github.com/jrosebr1/imutils. |
 
 - **What we are doing differently :**
   - CAVIAR aims to detect unusual human behavior, or patterns in their activity. Our application will revolve around detecting the number of people in a crowd. And displaying real time data data.
@@ -144,6 +145,8 @@ https://viratdata.org/~~
 - Our implementation of YOLOv3 for human detection in images first builds the model by loading the provided weights and configuration and then feeding them to a deep neural network. Our implementation uses the opencv deep neural network by using the cv2.dnn.readNetFromDarknet() function. Note we don’t use the actual YOLOv3 neural network but our own implementation of it using its training data. We then build the input, called a blob or binary large object, for the neural network from the image and send it to the network. We then loop through the output of the network which is another blob that contains the detections. We loop through each detection in the output and send it through a parser to determine if it passes as a person. The detection contains information about the bounding box surrounding the detected object. In addition to that it contains the neural network’s probability of the object belonging to each one of its identifiable categories, as it can identify more than just people. We then make sure that a human is the most probable object and, if it is, we threshold the probability to ensure that only detections with high confidence are included. We then draw boxes around the objects that pass the threshold and count the number of people we detect.
 - The process for our implementation of YOLOv3 for videos follows a very similar process for how it works with images. It builds the model using the same training data. We extract the video data to ensure we can output with the same data, such as resolution, video length, and the video’s frames per second. We then loop through each frame and send the frame as an input to the neural network. It counts people using the same method as images and outputs how many people it detected in that frame and writes it to the output video. After we loop through all the frames we output the video. 
 - On top of all these implementations our application runs on a Django web server. This allows for custom videos and images to be used for testing purposes as it allows for videos to be uploaded dynamically. We don’t have to have our videos in a predefined location and can browse the computer we are on for the video or image we want to run through the program.
+
+- **See project document for full approach and report**
 
 **List of Work :**
 - Equal work was completed by all members of the group.
