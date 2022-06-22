@@ -1,4 +1,4 @@
 opencv-python==4.2.0.32
-numpy==1.18.2
+numpy==1.22.0
 Django==3.0.5
 imutils==0.5.3
